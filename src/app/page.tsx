@@ -116,7 +116,7 @@ export default function Home() {
       </Head>
 
       {/* Animated Sticker */}
-      <div className="absolute top-6 right-6 px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer">
+      <div className="mt-4 mx-auto w-fit px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer sm:absolute sm:top-6 sm:right-6">
         Powered by Generative AI CEO
       </div>
 
