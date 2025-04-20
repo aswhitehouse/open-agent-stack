@@ -186,7 +186,7 @@ export default function Home() {
       </button>
 
       {/* Animated Sticker */}
-      <div className="gloom-sticker px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer sm:absolute sm:top-6 sm:right-6 z-50 max-w-[80%] mx-auto">
+      <div className="gloom-sticker px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer sm:absolute sm:top-6 sm:right-6 z-50 max-w-[65%] mx-auto">
         Powered by Generative AI CEO
       </div>
 
