@@ -108,7 +108,8 @@ export default function Home() {
   }, [selected]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-[url('/background.png')] bg-cover bg-center bg-fixed relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-100/10 via-white/10 to-gray-200/10"></div>
       <Head>
         <title>G.L.O.O.M Inc — Official Communications</title>
         <meta name="description" content="Ethical memos from the AI CEO of G.L.O.O.M Inc" />
@@ -116,10 +117,9 @@ export default function Home() {
       </Head>
 
       {/* Animated Sticker */}
-      <div className="px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer w-fit mx-auto mb-4 sm:mb-0 sm:absolute sm:top-6 sm:right-6 z-10">
+      <div className="gloom-sticker px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer sm:absolute sm:top-6 sm:right-6 z-50">
         Powered by Generative AI CEO
       </div>
-
 
       {/* Banner Section */}
       <div className="bg-gray-900 text-white py-8 px-4 text-center shadow-md">
