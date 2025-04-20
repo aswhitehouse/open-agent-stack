@@ -1,7 +1,7 @@
 // app/page.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
@@ -96,28 +96,97 @@ const chartOptions = {
 export default function Home() {
   const [selected, setSelected] = useState(announcements[0]);
   const [animatedText, setAnimatedText] = useState('');
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
+    // Text animation setup
     let index = 0;
     const interval = setInterval(() => {
       setAnimatedText(selected.content.slice(0, index + 1));
       index++;
       if (index === selected.content.length) clearInterval(interval);
     }, 10);
-    return () => clearInterval(interval);
-  }, [selected]);
+
+    // Add wheel listener for audio
+    const handleWheel = () => {
+      if (!hasInteracted && audioRef.current) {
+        audioRef.current.play().catch(() => {
+          console.log('Audio play failed');
+        });
+        setHasInteracted(true);
+        window.removeEventListener('wheel', handleWheel);
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: true });
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [selected, hasInteracted]);
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch(() => {
+          console.log('Audio play failed');
+        });
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-[url('/background.png')] bg-cover bg-center bg-fixed relative overflow-hidden">
+    <div 
+      className="min-h-screen bg-[url('/background.png')] bg-cover bg-center bg-fixed relative overflow-hidden"
+    >
       <div className="absolute inset-0 bg-gradient-to-br from-gray-100/10 via-white/10 to-gray-200/10"></div>
+      
+      {/* Audio Element */}
+      <audio
+        ref={audioRef}
+        preload="auto"
+        autoPlay
+        loop
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onError={(e) => {
+          console.error('Audio error:', e);
+          const audio = e.target as HTMLAudioElement;
+          console.error('Audio error details:', {
+            error: audio.error,
+            networkState: audio.networkState,
+            readyState: audio.readyState,
+            src: audio.currentSrc
+          });
+        }}
+      >
+        <source src="/bgroundaw.mp3" type="audio/mpeg" />
+        <source src="/bgroundaw.ogg" type="audio/ogg" />
+        Your browser does not support the audio element.
+      </audio>
+
       <Head>
         <title>G.L.O.O.M Inc — Official Communications</title>
         <meta name="description" content="Ethical memos from the AI CEO of G.L.O.O.M Inc" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* Audio Control */}
+      <button
+        onClick={toggleAudio}
+        className="absolute top-4 left-4 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+        title={isPlaying ? "Pause audio" : "Play audio"}
+      >
+        {isPlaying ? "🔊" : "🔈"}
+      </button>
+
       {/* Animated Sticker */}
-      <div className="gloom-sticker px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer sm:absolute sm:top-6 sm:right-6 z-50 max-w-[90%] mx-auto">
+      <div className="gloom-sticker px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer sm:absolute sm:top-6 sm:right-6 z-50 max-w-[80%] mx-auto">
         Powered by Generative AI CEO
       </div>
 
