@@ -117,7 +117,7 @@ export default function Home() {
       </Head>
 
       {/* Animated Sticker */}
-      <div className="gloom-sticker px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer sm:absolute sm:top-6 sm:right-6 z-50">
+      <div className="gloom-sticker px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer sm:absolute sm:top-6 sm:right-6 z-50 max-w-[90%] mx-auto">
         Powered by Generative AI CEO
       </div>
 
@@ -137,7 +137,7 @@ export default function Home() {
             className="rounded-full shadow-lg border-4 border-white hover:scale-105 transition-transform duration-500"
           />
         </div>
-        <p className="text-center text-xl font-semibold text-gray-700 mb-6 font-[cursive]">Nexa Ry, C.E.O.</p>
+        <p className="text-center text-xl font-semibold text-white mb-6 font-[cursive] drop-shadow-lg">Nexa Ry, C.E.O.</p>
 
         <div className="bg-white rounded-xl shadow-xl p-6 mb-6 border border-gray-200 transition-all duration-500 ease-in-out">
           <h2 className="text-xl font-semibold mb-2">Current Announcement: {selected.title}</h2>
