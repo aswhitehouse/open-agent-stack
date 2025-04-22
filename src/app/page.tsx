@@ -252,6 +252,8 @@ export default function Home() {
       <footer className="are-you-ready-for-this-bullshit">
         {/* aGF2ZSB5b3UgY2hlY2tlZCB5b3VyIEJlaGF2aW91cmFsIENvbnRyYWN0cyBsYXRlbHk/ */}
       </footer>
+      <p className="text-center text-lg mb-2 italic">Not everyone gets this far.</p>
+      <p className="text-center text-sm text-gray-400">This page isn&apos;t ready… or maybe you aren&apos;t.</p>
     </div>
   );
 }
