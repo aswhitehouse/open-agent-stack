@@ -101,7 +101,6 @@ export default function Home() {
   const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
-    // Text animation setup
     let index = 0;
     const interval = setInterval(() => {
       setAnimatedText(selected.content.slice(0, index + 1));
@@ -109,7 +108,8 @@ export default function Home() {
       if (index === selected.content.length) clearInterval(interval);
     }, 10);
 
-    // Add wheel listener for audio
+    console.log("🕳️ Curious minds tend to look at: /careers");
+
     const handleWheel = () => {
       if (!hasInteracted && audioRef.current) {
         audioRef.current.play().catch(() => {
