@@ -4,7 +4,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
