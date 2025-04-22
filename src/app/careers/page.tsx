@@ -23,8 +23,6 @@ export default function Careers() {
 
       {/* Don't touch unless you're cleared for Level 2 */}
       {/* a2V5X3BocmFzZToiU2hhZG93X0ludGVyaW1fQ2hlY2si */}
-      {/* c2hhZG93X2xldmVsOjI= */}
-      {/* Y2hlY2tfdGhlX3NpZ25hdHVyZQ== */}
       {/* ...they said recruitment was suspended. That wasn't true. */}
     </div>
   );
