@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gloom inc",
-  description: "Global Leadership Optimisation & Organisational Morailty",
+  title: "Open Agent Stack",
+  description: "A comprehensive framework for building, deploying, and governing AI agents with behavioral contracts, communication protocols, and intelligent supervision.",
 };
 
 export default function RootLayout({

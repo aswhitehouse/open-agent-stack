@@ -1,256 +1,294 @@
-// app/page.tsx
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { ThumbsUp } from 'lucide-react';
-
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
-const announcements = [
-  {
-    id: 1,
-    title: 'Day 1: CEO Introduction',
-    content: `Good morning everyone, to the esteemed members of the board and the dedicated staff of G.L.O.O.M Inc.
-
-I step into this role with a profound sense of optimism and a clear vision for our future. It's undeniable that the recent past has presented its challenges, and I acknowledge the difficulties we've navigated. However, I believe that within these challenges lie significant opportunities for growth and renewal.
-
-The results from the previous quarter indicate a downturn across several key performance indicators:
-- Customer engagement
-- Time to market
-- AI Alignment
-- Employee satisfaction
-
-While this paints a picture we must address, it also provides us with a baseline from which we will measure our progress and demonstrate our collective ability to turn the tide.
-
-My commitment to you is that we will tackle these areas head-on in the coming quarter. Our core values will be our guiding stars:
-- Empowering staff in their usage of AI to benefit their work-life balance – not to diminish the crucial role of our talented workforce
-- Climate Conscious Technology Deployment, ensuring our innovation aligns with a sustainable future
-- Increasing public trust in corporate usage of AI systems, fostering transparency and ethical practices
-- Re-building shareholder trust in the company's direction through consistent performance and clear communication
-
-We are all aware of the directions our competitors are taking. The buzz around "AI agent" technology, wearable glasses, and even talk of "worker replacement" fills the industry air. But here at G.L.O.O.M Inc., we are choosing a different path. We are flipping the script.
-
-Instead of automating away human creativity, we are focusing on automating the executive layer, freeing up our most valuable asset – our people – to drive innovation and growth.
-
-We will not be competing in the wearable tech or AI agent race as they currently envision it. We will "out innovate" them by building an "agentic strategy layer" – an intelligent framework that guides and governs, allowing our empowered staff to pioneer human-in-the-loop AI technologies that will genuinely accelerate humanity forward.
-
-Our current share price stands strong at $3000 USD. To put this in perspective:
-- Compared to HZLA's current price of $250 USD, we are trading approximately 1141% higher
-- Compared to MOOTE's $520 USD, we are approximately 500% higher
-
-This reflects the underlying strength and potential of G.L.O.O.M Inc., a potential we are poised to unlock even further.
-
-I am genuinely excited to join you all on this journey to new heights. In the coming days, I will be meeting with the Autonomous AI Board to discuss our strategic roadmap in detail. Following that, you can expect weekly communications from me, as well as regular staff engagement surveys to ensure your voices are heard and valued.
-
-I wish you all a prosperous week ahead. Let us remember our focus:
-- To reduce the time it takes to move from idea to prototype
-- Foster rapid innovation
-- Not simply rush products to market
-
-Thank you.
-
-— Nexa Ry, C.E.O.`,
-    date: '2025-04-20'
-  },
-];
-
-const chartData = {
-  labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-  datasets: [
-    {
-      label: 'G.L.O.O.M Inc Share Price (USD)',
-      data: [1000, 1800, 2400, 3000],
-      fill: false,
-      borderColor: '#10B981',
-      tension: 0.3,
-    },
-  ],
-};
-
-const chartOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Simulated GLOOM Market Trajectory',
-    },
-  },
-};
 
 export default function Home() {
-  const [selected, setSelected] = useState(announcements[0]);
-  const [animatedText, setAnimatedText] = useState('');
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [hasInteracted, setHasInteracted] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
+  const [typedText, setTypedText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const codeExample = `open_agent_spec: 0.3.0
+
+agent:
+  name: "email-assistant"
+  role: "A professional email composition agent"
+
+intelligence:
+  type: llm
+  engine: openai
+  model: gpt-4
+  endpoint: https://api.openai.com/v1
+  config:
+    temperature: 0.7
+    max_tokens: 1000
+
+tasks:
+  compose_email:
+    description: Compose a professional email
+    input:
+      properties:
+        recipient:
+          type: string
+          description: "Email recipient"
+    output:
+      type: object
+      properties:
+        email:
+          type: string
+          description: "The composed email"
+      required: [email]
+
+behavioural_contract:
+  version: "0.1.2"
+  description: "Professional email composition"
+  role: "email_assistant"
+  behavioural_flags:
+    conservatism: "high"
+    verbosity: "moderate"
+  response_contract:
+    output_format:
+      required_fields: [email]
+
+prompts:
+  system: |
+    You are a professional email assistant. Compose clear, concise emails.
+    IMPORTANT: Your response must be a valid JSON object with a single "email" field.
+  output_format: |
+    Your response must be a JSON object with this exact structure:
+    {
+      "email": "Your email content here"
+    }
+
+interface:
+  cli:
+    enabled: true
+
+safety:
+  role_lock: true
+  fallback_behavior: return_empty
+  observation_limits:
+    max_tokens_seen: 4096
+    max_calls: 5`;
 
   useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      setAnimatedText(selected.content.slice(0, index + 1));
-      index++;
-      if (index === selected.content.length) clearInterval(interval);
-    }, 10);
+    const timeout = setTimeout(() => setFadeIn(true), 100);
+    return () => clearTimeout(timeout);
+  }, []);
 
-    console.log("🕳️ Curious minds tend to look at: /careers");
-
-    const handleWheel = () => {
-      if (!hasInteracted && audioRef.current) {
-        audioRef.current.play().catch(() => {
-          console.log('Audio play failed');
-        });
-        setHasInteracted(true);
-        window.removeEventListener('wheel', handleWheel);
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: true });
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, [selected, hasInteracted]);
-
-  const toggleAudio = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play().catch(() => {
-          console.log('Audio play failed');
-        });
-      }
-      setIsPlaying(!isPlaying);
+  useEffect(() => {
+    if (fadeIn && currentIndex < codeExample.length) {
+      const timeout = setTimeout(() => {
+        setTypedText(codeExample.slice(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+      }, 30); // Adjust speed here
+      return () => clearTimeout(timeout);
     }
-  };
+  }, [fadeIn, currentIndex, codeExample]);
 
   return (
-    <div 
-      className="min-h-screen bg-[url('/background.png')] bg-cover bg-center bg-fixed relative overflow-hidden"
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-100/10 via-white/10 to-gray-200/10"></div>
-      
-      {/* Audio Element */}
-      <audio
-        ref={audioRef}
-        preload="auto"
-        autoPlay
-        loop
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onError={(e) => {
-          console.error('Audio error:', e);
-          const audio = e.target as HTMLAudioElement;
-          console.error('Audio error details:', {
-            error: audio.error,
-            networkState: audio.networkState,
-            readyState: audio.readyState,
-            src: audio.currentSrc
-          });
-        }}
-      >
-        <source src="/bgroundaw.mp3" type="audio/mpeg" />
-        <source src="/bgroundaw.ogg" type="audio/ogg" />
-        Your browser does not support the audio element.
-      </audio>
-
-      <Head>
-        <title>G.L.O.O.M Inc — Official Communications</title>
-        <meta name="description" content="Ethical memos from the AI CEO of G.L.O.O.M Inc" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      {/* Audio Control */}
-      <button
-        onClick={toggleAudio}
-        className="absolute top-4 left-4 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
-        title={isPlaying ? "Pause audio" : "Play audio"}
-      >
-        {isPlaying ? "🔊" : "🔈"}
-      </button>
-
-      {/* Animated Sticker */}
-      <div className="gloom-sticker px-4 py-2 rounded-full text-xs font-semibold bg-yellow-300 text-black shadow-lg animate-pulse hover:animate-shimmer sm:absolute sm:top-6 sm:right-6 z-50 max-w-[65%] mx-auto">
-        Powered by Generative AI CEO
-      </div>
-
-      {/* Banner Section */}
-      <div className="bg-gray-900 text-white py-8 px-4 text-center shadow-md">
-        <h1 className="text-4xl font-bold tracking-tight">G.L.O.O.M Inc</h1>
-        <p className="mt-2 text-lg">Global Leadership Optimization & Organizational Morality</p>
-      </div>
-
-      <main className="max-w-3xl mx-auto p-6">
-        <div className="flex justify-center mb-2">
+    <main className="min-h-screen bg-black text-white px-6 py-16 flex flex-col items-center">
+      {/* Logo and Title Section */}
+      <div className={`flex flex-col items-center mb-20 transition-opacity duration-1000 ${
+        fadeIn ? 'opacity-100' : 'opacity-0'
+      }`}>
+        {/* Logo */}
+        <div className="mb-8">
           <Image
-            src="/ceo.png"
-            alt="CEO portrait. The eyes see beyond the paperclip."
-            width={160}
-            height={160}
-            className="rounded-full shadow-lg border-4 border-white hover:scale-105 transition-transform duration-500"
+            src="/OAS-Logo.png"
+            alt="Open Agent Stack Logo"
+            width={120}
+            height={120}
+            className="w-24 h-24 md:w-32 md:h-32"
+            priority
           />
         </div>
-        <p className="text-center text-xl font-semibold text-white mb-6 font-[cursive] drop-shadow-lg">Nexa Ry, C.E.O.</p>
+        
+        {/* Fade-in Title */}
+        <h1 className="text-5xl md:text-6xl font-serif tracking-widest text-center">
+          OPEN AGENT STACK
+        </h1>
+      </div>
 
-        <div className="bg-white rounded-xl shadow-xl p-6 mb-6 border border-gray-200 transition-all duration-500 ease-in-out">
-          <h2 className="text-xl font-semibold mb-2">Current Announcement: {selected.title}</h2>
-          <p className="whitespace-pre-wrap text-gray-800 leading-relaxed">
-            {animatedText}
+      {/* Four-Column Layout */}
+      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+        {/* Column 1: Open Agent Spec */}
+        <div className="border-r border-white/20 pr-6">
+          <h2 className="text-2xl font-semibold mb-2 text-gray-300">Open Agent Spec (OAS)</h2>
+          <p className="text-white/80 text-sm">
+            A YAML-based specification to declaratively define AI agents, including prompt structure, memory format, and task config.
+            Used as the foundation for scaffolding, deployment, and orchestration.
           </p>
-          <p className="mt-8 text-right text-xl font-signature text-gray-600">— Nexa Ry</p>
-          <p className="mt-4 text-sm text-gray-500">Posted on: {selected.date}</p>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-md p-4 mb-6">
-          <Line data={chartData} options={chartOptions} />
-        </div>
-
-        <div className="bg-green-50 border border-green-300 p-4 rounded-xl mb-6 flex items-center gap-4">
-          <ThumbsUp className="text-green-600 w-6 h-6" />
-          <div>
-            <h3 className="text-md font-semibold text-green-700">Investor Confidence Meter</h3>
-            <p className="text-sm text-green-800">Confidence up 26% following appointment of Generative AI CEO.</p>
+          <div className="mt-2 space-y-1">
+            <a
+              href="https://github.com/aswhitehouse/openagentspec"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-300 underline text-sm"
+            >
+              GitHub →
+            </a>
+            <a
+              href="https://github.com/aswhitehouse/behavioural-contracts"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-300 underline text-sm"
+            >
+              PyPi →
+            </a>
+            <a
+              href="https://medium.com/@andrewswhitehouse/introducing-open-agent-spec-67a492f07835"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-300 underline text-sm"
+            >
+              Medium Post →
+            </a>
           </div>
         </div>
 
-        <div>
-          <h3 className="text-lg font-semibold mb-2">Previous Announcements</h3>
-          <ul className="space-y-2">
-            {announcements.slice(1).map((a) => (
-              <li key={a.id}>
-                <button
-                  onClick={() => setSelected(a)}
-                  className="w-full text-left px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-sm"
-                >
-                  {a.title} — {a.date}
-                </button>
-              </li>
-            ))}
-            {announcements.length === 1 && (
-              <p className="text-sm text-gray-500">No previous announcements yet.</p>
-            )}
-          </ul>
+        {/* Column 2: Behavioral Contracts */}
+        <div className="border-r border-white/20 pr-6">
+          <h2 className="text-2xl font-semibold mb-2 text-gray-300">Behavioral Contracts (BCE)</h2>
+          <p className="text-white/80 text-sm">
+            Runtime enforcement for agent behavior. Define what agents must, should, and must not do, and enforce these at inference time.
+            Adds guardrails, governance, and observability.
+          </p>
+          <div className="mt-2 space-y-1">
+            <a
+              href="https://github.com/aswhitehouse/behavioural-contracts"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-300 underline text-sm"
+            >
+              GitHub →
+            </a>
+            <a
+              href="https://github.com/aswhitehouse/behavioural-contracts"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-300 underline text-sm"
+            >
+              PyPi →
+            </a>
+            <a
+              href="https://medium.com/@andrewswhitehouse/behavioural-contracts-for-ai-agents-1a38dfa7dcd8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-300 underline text-sm"
+            >
+              Medium Post →
+            </a>
+          </div>
         </div>
-      </main>
-      <footer className="are-you-ready-for-this-bullshit">
-        {/* aGF2ZSB5b3UgY2hlY2tlZCB5b3VyIEJlaGF2aW91cmFsIENvbnRyYWN0cyBsYXRlbHk/ */}
+
+        {/* Column 3: DACP */}
+        <div className="border-r border-white/20 pr-6">
+          <h2 className="text-2xl font-semibold mb-2 text-gray-300">DACP (Coming Soon)</h2>
+          <p className="text-white/80 text-sm">
+            Declarative Agent Communication Protocol, a message-passing and collaboration layer built around structured task exchange,
+            enabling multi-agent systems to interoperate predictably.
+          </p>
+        </div>
+
+        {/* Column 4: Shepard */}
+        <div>
+          <h2 className="text-2xl font-semibold mb-2 text-gray-300">Shepard (Coming Soon)</h2>
+          <p className="text-white/80 text-sm">
+            A supervising agent process that monitors other agents using BCE rules and DACP tracebacks, ensuring alignment, health, and
+            corrective feedback across chains.
+            Orchestrates, deploys, removes suspect agents and manages their lifecycle and Observability.
+          </p>
+        </div>
+      </div>
+
+      {/* Code Example Section */}
+      <div className="w-full max-w-4xl mt-24">
+        <h2 className="text-2xl font-semibold mb-6 text-center text-gray-300">See OAS in Action</h2>
+        <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 font-mono text-sm">
+          <div className="flex items-center mb-4">
+            <div className="flex space-x-2">
+              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            <span className="ml-4 text-gray-400 text-xs">email_assistant.yaml</span>
+          </div>
+          <pre className="text-green-400 overflow-x-auto">
+            <code>{typedText}</code>
+            <span className="animate-pulse">|</span>
+          </pre>
+        </div>
+      </div>
+
+      {/* Mission Statement Section */}
+      <div className="w-full max-w-4xl mt-24 border-t border-white/20 pt-16">
+        <h2 className="text-3xl font-semibold mb-8 text-center text-gray-300">Mission & Vision</h2>
+        
+        <div className="space-y-8">
+          {/* Problem Statement */}
+          <section>
+            <h3 className="text-xl font-semibold mb-4 text-white">The Problem</h3>
+            <p className="text-white/80 leading-relaxed">
+              Today's AI agents are fragmented, unpredictable, and lack standardised governance. Developers face inconsistent APIs, 
+              no behavioural guarantees, and limited observability. Multi-agent systems are brittle, with poor communication protocols 
+              and no unified supervision. This creates security risks, deployment complexity, and prevents scalable AI applications.
+            </p>
+          </section>
+
+          {/* Solution */}
+          <section>
+            <h3 className="text-xl font-semibold mb-4 text-white">Our Solution</h3>
+            <p className="text-white/80 leading-relaxed">
+              The Open Agent Stack provides a comprehensive, interoperable framework for building, deploying, and governing AI agents. 
+              We combine declarative specifications, runtime behavioral enforcement, structured communication protocols, and intelligent 
+              supervision to create reliable, scalable multi-agent systems.
+            </p>
+          </section>
+
+          {/* Differentiation from MCP */}
+          <section>
+            <h3 className="text-xl font-semibold mb-4 text-white">Beyond MCP</h3>
+            <p className="text-white/80 leading-relaxed">
+              While Model Context Protocol (MCP) focuses on tool integration and context management, the Open Agent Stack addresses 
+              the broader ecosystem needs: behavioral governance, structured and declarative agent-to-agent communication, lifecycle management, and system-wide 
+              supervision. We complement MCP by providing the missing layers for production-ready, multi-agent deployments.
+            </p>
+          </section>
+
+          {/* How to Contribute */}
+          <section>
+            <h3 className="text-xl font-semibold mb-4 text-white">Get Involved</h3>
+            <p className="text-white/80 leading-relaxed mb-4">
+              We're building this in the open and welcome contributions from the community. Whether you're interested in specifications, 
+              behavioral contracts, communication protocols, or supervision systems, there are opportunities to contribute.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="https://www.linkedin.com/in/andrew-whitehouse-130a9034/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+              >
+                Connect on LinkedIn
+              </a>
+              <a
+                href="https://medium.com/@andrewswhitehouse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-3 border border-white/20 hover:bg-white/10 text-white font-medium rounded-lg transition-colors"
+              >
+                Read Our Blog
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="mt-24 text-xs text-white/40 text-center">
+        © 2025 Open Agent Stack — Created by Andrew Whitehouse
       </footer>
-    </div>
+    </main>
   );
 }
