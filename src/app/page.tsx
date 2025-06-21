@@ -129,7 +129,7 @@ safety:
               GitHub →
             </a>
             <a
-              href="https://github.com/aswhitehouse/behavioural-contracts"
+              href="https://pypi.org/project/open-agent-spec/1.0.0/"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-blue-300 underline text-sm"
@@ -164,7 +164,7 @@ safety:
               GitHub →
             </a>
             <a
-              href="https://github.com/aswhitehouse/behavioural-contracts"
+              href="https://pypi.org/project/behavioural-contracts/0.1.0/"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-blue-300 underline text-sm"
