@@ -230,7 +230,7 @@ safety:
           <section>
             <h3 className="text-xl font-semibold mb-4 text-white">The Problem</h3>
             <p className="text-white/80 leading-relaxed">
-              Today's AI agents are fragmented, unpredictable, and lack standardised governance. Developers face inconsistent APIs, 
+              Today&apos;s AI agents are fragmented, unpredictable, and lack standardised governance. Developers face inconsistent APIs, 
               no behavioural guarantees, and limited observability. Multi-agent systems are brittle, with poor communication protocols 
               and no unified supervision. This creates security risks, deployment complexity, and prevents scalable AI applications.
             </p>
@@ -260,7 +260,7 @@ safety:
           <section>
             <h3 className="text-xl font-semibold mb-4 text-white">Get Involved</h3>
             <p className="text-white/80 leading-relaxed mb-4">
-              We're building this in the open and welcome contributions from the community. Whether you're interested in specifications, 
+              We&apos;re building this in the open and welcome contributions from the community. Whether you&apos;re interested in specifications, 
               behavioral contracts, communication protocols, or supervision systems, there are opportunities to contribute.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
