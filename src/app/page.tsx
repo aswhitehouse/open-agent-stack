@@ -121,7 +121,7 @@ safety:
           </p>
           <div className="mt-2 space-y-1">
             <a
-              href="https://github.com/aswhitehouse/openagentspec"
+              href="https://github.com/aswhitehouse/open-agent-spec"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-blue-300 underline text-sm"
