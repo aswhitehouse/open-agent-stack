@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Open Agent Stack is a specification framework for building safe, structured, and interoperable AI agents. Featuring Open Agent Spec, Behavioral Contracts, and DACP.",
   keywords:
-    "Open Agent Stack, Open Agent Spec, Behavioral Contracts, Declarative Agent Communication Protocol, AI agents, agentic systems, DACP, MCP alternative, AI orchestration",
+    "Open Agent Stack, Open Agent Spec, Behavioral Contracts, Behavioural Contract Engineering, Declarative Agent Communication Protocol, AI agents, agentic systems, DACP, MCP alternative, AI orchestration",
   authors: [{ name: "Andrew Whitehouse" }],
   openGraph: {
     title: "Open Agent Stack – Define, Govern, and Connect AI Agents",
