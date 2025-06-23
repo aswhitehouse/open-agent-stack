@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   },
   viewport: "width=device-width, initial-scale=1",
   themeColor: "#000000",
+  icons: {
+    icon: "/OAS-Logo.png",
+    shortcut: "/OAS-Logo.png",
+    apple: "/OAS-Logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -30,6 +35,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/OAS-Logo.png" />
+        <link rel="shortcut icon" href="/OAS-Logo.png" />
+        <link rel="apple-touch-icon" href="/OAS-Logo.png" />
+      </head>
       <body className="antialiased">
         {children}
       </body>

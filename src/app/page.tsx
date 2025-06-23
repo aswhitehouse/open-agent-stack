@@ -108,6 +108,9 @@ safety:
         <h1 className="text-5xl md:text-6xl font-serif tracking-widest text-center">
           OPEN AGENT STACK
         </h1>
+        <p className="text-base md:text-lg text-gray-400 text-center mt-6 max-w-4xl leading-relaxed">
+          Open Agent Stack is an independent, umbrella toolkit for building safe, structured ai agent ecosystems
+        </p>
       </div>
 
       {/* Four-Column Layout */}
