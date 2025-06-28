@@ -8,11 +8,12 @@ export default function Home() {
   const [typedText, setTypedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const codeExample = `open_agent_spec: 0.3.0
+  const codeExample = `open_agent_spec: 1.0.7
 
 agent:
-  name: "email-assistant"
-  role: "A professional email composition agent"
+  name: hello-world-agent
+  description: A simple agent that responds with a greeting
+  role: chat
 
 intelligence:
   type: llm
@@ -21,55 +22,46 @@ intelligence:
   endpoint: https://api.openai.com/v1
   config:
     temperature: 0.7
-    max_tokens: 1000
+    max_tokens: 150
 
 tasks:
-  compose_email:
-    description: Compose a professional email
+  greet:
+    description: Say hello to a person by name
+    timeout: 30
     input:
+      type: object
       properties:
-        recipient:
+        name:
           type: string
-          description: "Email recipient"
+          description: The name of the person to greet
+          minLength: 1
+          maxLength: 100
+      required: [name]
     output:
       type: object
       properties:
-        email:
+        response:
           type: string
-          description: "The composed email"
-      required: [email]
+          description: The greeting response
+          minLength: 1
+      required: [response]
+
+prompts:
+  system: >
+    You are a friendly agent that greets people by name.
+    Respond with: "Hello <name>!"
+  user: "{{name}}"
 
 behavioural_contract:
   version: "0.1.2"
-  description: "Professional email composition"
-  role: "email_assistant"
+  description: "Simple contract requiring a greeting response"
+  role: "Friendly agent"
   behavioural_flags:
-    conservatism: "high"
-    verbosity: "moderate"
+    conservatism: "moderate"
+    verbosity: "compact"
   response_contract:
     output_format:
-      required_fields: [email]
-
-prompts:
-  system: |
-    You are a professional email assistant. Compose clear, concise emails.
-    IMPORTANT: Your response must be a valid JSON object with a single "email" field.
-  output_format: |
-    Your response must be a JSON object with this exact structure:
-    {
-      "email": "Your email content here"
-    }
-
-interface:
-  cli:
-    enabled: true
-
-safety:
-  role_lock: true
-  fallback_behavior: return_empty
-  observation_limits:
-    max_tokens_seen: 4096
-    max_calls: 5`;
+      required_fields: [response]`;
 
   useEffect(() => {
     const timeout = setTimeout(() => setFadeIn(true), 100);
@@ -208,6 +200,21 @@ safety:
       {/* Code Example Section */}
       <div className="w-full max-w-4xl mt-24">
         <h2 className="text-2xl font-semibold mb-6 text-center text-gray-300">See OAS in Action</h2>
+        
+        {/* YouTube Video Embed */}
+        <div className="mb-12">
+          <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+            <iframe
+              className="absolute top-0 left-0 w-full h-full rounded-lg"
+              src="https://www.youtube.com/embed/aTxObLDu8l4"
+              title="Open Agent Stack Demo"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+        
         <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 font-mono text-sm">
           <div className="flex items-center mb-4">
             <div className="flex space-x-2">
