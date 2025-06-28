@@ -22,7 +22,11 @@ export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1",
   themeColor: "#000000",
   icons: {
-    icon: "/OAS-Logo.png",
+    icon: [
+      { url: "/OAS-Logo.png", type: "image/png" },
+      { url: "/OAS-Logo.png", sizes: "32x32", type: "image/png" },
+      { url: "/OAS-Logo.png", sizes: "16x16", type: "image/png" },
+    ],
     shortcut: "/OAS-Logo.png",
     apple: "/OAS-Logo.png",
   },
@@ -36,9 +40,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/OAS-Logo.png" />
-        <link rel="shortcut icon" href="/OAS-Logo.png" />
+        <link rel="icon" type="image/png" href="/OAS-Logo.png" />
+        <link rel="shortcut icon" type="image/png" href="/OAS-Logo.png" />
         <link rel="apple-touch-icon" href="/OAS-Logo.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/OAS-Logo.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/OAS-Logo.png" />
       </head>
       <body className="antialiased">
         {children}
