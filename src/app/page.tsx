@@ -268,7 +268,7 @@ safety:
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="https://www.linkedin.com/in/andrew-whitehouse-130a9034/"
+                href="https://www.linkedin.com/company/107569633/admin/dashboard/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
