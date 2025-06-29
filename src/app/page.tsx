@@ -11,11 +11,12 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, []);
 
-  const codeExample = `open_agent_spec: 0.3.0
+  const codeExample = `open_agent_spec: 1.0.4
 
 agent:
-  name: "email-assistant"
-  role: "A professional email composition agent"
+  name: hello-world-agent
+  description: A simple agent that responds with a greeting
+  role: chat
 
 intelligence:
   type: llm
@@ -24,85 +25,46 @@ intelligence:
   endpoint: https://api.openai.com/v1
   config:
     temperature: 0.7
-    max_tokens: 1000
+    max_tokens: 150
 
 tasks:
-  compose_email:
-    description: Compose a professional email
+  greet:
+    description: Say hello to a person by name
+    timeout: 30
     input:
+      type: object
       properties:
-        recipient:
+        name:
           type: string
-          description: "Email recipient"
-        subject:
-          type: string
-          description: "Email subject line"
-        details:
-          type: string
-          description: "Email content details"
+          description: The name of the person to greet
+          minLength: 1
+          maxLength: 100
+      required: [name]
     output:
       type: object
       properties:
-        email:
+        response:
           type: string
-          description: "The composed email"
-      required: [email]
+          description: The greeting response
+          minLength: 1
+      required: [response]
+
+prompts:
+  system: >
+    You are a friendly agent that greets people by name.
+    Respond with: "Hello <name>!"
+  user: "{{name}}"
 
 behavioural_contract:
   version: "0.1.2"
-  description: "Professional email composition"
-  role: "email_assistant"
+  description: "Simple contract requiring a greeting response"
+  role: "Friendly agent"
   behavioural_flags:
-    conservatism: "high"
-    verbosity: "moderate"
+    conservatism: "moderate"
+    verbosity: "compact"
   response_contract:
     output_format:
-      required_fields: [email]
-
-prompts:
-  system: |
-    You are a professional email assistant. Compose clear, concise emails.
-    IMPORTANT: Your response must be a valid JSON object with a single "email" field.
-    Example format:
-    {
-      "email": "Your email content here"
-    }
-  user: |
-    Write a professional email to {{recipient}} 
-    about {{subject}} with these details: {{details}}
-  output_format: |
-    Your response must be a JSON object with this exact structure:
-    {
-      "email": "Your email content here"
-    }
-
-interface:
-  cli:
-    enabled: true
-    arguments:
-      - name: recipient
-        type: string
-        description: "Email recipient"
-        required: true
-      - name: subject
-        type: string
-        description: "Email subject"
-        required: true
-      - name: details
-        type: string
-        description: "Email details"
-        required: true
-
-logging:
-  level: info
-  redact_fields: [api_key]
-
-safety:
-  role_lock: true
-  fallback_behavior: return_empty
-  observation_limits:
-    max_tokens_seen: 4096
-    max_calls: 5`;
+      required_fields: [response]`;
 
   return (
     <main className="min-h-screen bg-black text-white px-6 py-16 flex flex-col items-center">
