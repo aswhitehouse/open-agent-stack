@@ -5,15 +5,17 @@ import Image from 'next/image';
 
 export default function Home() {
   const [fadeIn, setFadeIn] = useState(false);
-  const [typedText, setTypedText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const codeExample = `open_agent_spec: 1.0.7
+  useEffect(() => {
+    const timeout = setTimeout(() => setFadeIn(true), 100);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const codeExample = `open_agent_spec: 0.3.0
 
 agent:
-  name: hello-world-agent
-  description: A simple agent that responds with a greeting
-  role: chat
+  name: "email-assistant"
+  role: "A professional email composition agent"
 
 intelligence:
   type: llm
@@ -22,61 +24,85 @@ intelligence:
   endpoint: https://api.openai.com/v1
   config:
     temperature: 0.7
-    max_tokens: 150
+    max_tokens: 1000
 
 tasks:
-  greet:
-    description: Say hello to a person by name
-    timeout: 30
+  compose_email:
+    description: Compose a professional email
     input:
-      type: object
       properties:
-        name:
+        recipient:
           type: string
-          description: The name of the person to greet
-          minLength: 1
-          maxLength: 100
-      required: [name]
+          description: "Email recipient"
+        subject:
+          type: string
+          description: "Email subject line"
+        details:
+          type: string
+          description: "Email content details"
     output:
       type: object
       properties:
-        response:
+        email:
           type: string
-          description: The greeting response
-          minLength: 1
-      required: [response]
-
-prompts:
-  system: >
-    You are a friendly agent that greets people by name.
-    Respond with: "Hello <name>!"
-  user: "{{name}}"
+          description: "The composed email"
+      required: [email]
 
 behavioural_contract:
   version: "0.1.2"
-  description: "Simple contract requiring a greeting response"
-  role: "Friendly agent"
+  description: "Professional email composition"
+  role: "email_assistant"
   behavioural_flags:
-    conservatism: "moderate"
-    verbosity: "compact"
+    conservatism: "high"
+    verbosity: "moderate"
   response_contract:
     output_format:
-      required_fields: [response]`;
+      required_fields: [email]
 
-  useEffect(() => {
-    const timeout = setTimeout(() => setFadeIn(true), 100);
-    return () => clearTimeout(timeout);
-  }, []);
-
-  useEffect(() => {
-    if (fadeIn && currentIndex < codeExample.length) {
-      const timeout = setTimeout(() => {
-        setTypedText(codeExample.slice(0, currentIndex + 1));
-        setCurrentIndex(currentIndex + 1);
-      }, 30); // Adjust speed here
-      return () => clearTimeout(timeout);
+prompts:
+  system: |
+    You are a professional email assistant. Compose clear, concise emails.
+    IMPORTANT: Your response must be a valid JSON object with a single "email" field.
+    Example format:
+    {
+      "email": "Your email content here"
     }
-  }, [fadeIn, currentIndex, codeExample]);
+  user: |
+    Write a professional email to {{recipient}} 
+    about {{subject}} with these details: {{details}}
+  output_format: |
+    Your response must be a JSON object with this exact structure:
+    {
+      "email": "Your email content here"
+    }
+
+interface:
+  cli:
+    enabled: true
+    arguments:
+      - name: recipient
+        type: string
+        description: "Email recipient"
+        required: true
+      - name: subject
+        type: string
+        description: "Email subject"
+        required: true
+      - name: details
+        type: string
+        description: "Email details"
+        required: true
+
+logging:
+  level: info
+  redact_fields: [api_key]
+
+safety:
+  role_lock: true
+  fallback_behavior: return_empty
+  observation_limits:
+    max_tokens_seen: 4096
+    max_calls: 5`;
 
   return (
     <main className="min-h-screen bg-black text-white px-6 py-16 flex flex-col items-center">
@@ -127,7 +153,7 @@ behavioural_contract:
               GitHub →
             </a>
             <a
-              href="https://pypi.org/project/open-agent-spec/1.0.0/"
+              href="https://pypi.org/project/open-agent-spec/"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-blue-300 underline text-sm"
@@ -162,7 +188,7 @@ behavioural_contract:
               GitHub →
             </a>
             <a
-              href="https://pypi.org/project/behavioural-contracts/0.1.0/"
+              href="https://pypi.org/project/behavioural-contracts/"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-blue-300 underline text-sm"
@@ -228,8 +254,7 @@ behavioural_contract:
             <span className="ml-4 text-gray-400 text-xs">chat_assistant.yaml</span>
           </div>
           <pre className="text-green-400 overflow-x-auto">
-            <code>{typedText}</code>
-            <span className="animate-pulse">|</span>
+            <code>{codeExample}</code>
           </pre>
         </div>
       </div>
