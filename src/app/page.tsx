@@ -103,6 +103,9 @@ behavioural_contract:
         <p className="text-base md:text-lg text-gray-400 text-center mt-6 max-w-4xl leading-relaxed">
           Open Agent Stack is an independent, umbrella toolkit for building safe, structured ai agent ecosystems
         </p>
+        <p className="text-sm md:text-base text-gray-500 text-center mt-4 max-w-3xl leading-relaxed">
+          Think of Open Agent Stack as "HTTP + middleware" for agents.
+        </p>
       </div>
 
       {/* Four-Column Layout */}
@@ -222,7 +225,7 @@ behavioural_contract:
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </div>
-            <span className="ml-4 text-gray-400 text-xs">email_assistant.yaml</span>
+            <span className="ml-4 text-gray-400 text-xs">chat_assistant.yaml</span>
           </div>
           <pre className="text-green-400 overflow-x-auto">
             <code>{typedText}</code>
