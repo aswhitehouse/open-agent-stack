@@ -188,6 +188,52 @@ behavioural_contract:
         </div>
       </div>
 
+      {/* Tools Section */}
+      <div className="w-full max-w-6xl mt-24">
+        <h2 className="text-3xl font-semibold mb-6 text-center text-gray-300">Agent Tool Ecosystem</h2>
+        <p className="text-sm md:text-base text-gray-500 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
+          Configure your agents to use tools at runtime - or use standalone!
+        </p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* File Writer */}
+          <div className="flex flex-col items-center text-center p-6 bg-gray-900/50 rounded-lg border border-gray-700/50 hover:border-gray-600/50 transition-colors">
+            <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">📄</span>
+            </div>
+            <h3 className="text-lg font-semibold text-white mb-2">File Writer</h3>
+            <p className="text-sm text-gray-400">Write to and modify files on disk</p>
+          </div>
+
+          {/* Terminal */}
+          <div className="flex flex-col items-center text-center p-6 bg-gray-900/50 rounded-lg border border-gray-700/50 hover:border-gray-600/50 transition-colors">
+            <div className="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">💻</span>
+            </div>
+            <h3 className="text-lg font-semibold text-white mb-2">Terminal</h3>
+            <p className="text-sm text-gray-400">Command-line interface for agents to run scripts and code</p>
+          </div>
+
+          {/* API Generator */}
+          <div className="flex flex-col items-center text-center p-6 bg-gray-900/50 rounded-lg border border-gray-700/50 hover:border-gray-600/50 transition-colors">
+            <div className="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">🔗</span>
+            </div>
+            <h3 className="text-lg font-semibold text-white mb-2">API Generator</h3>
+            <p className="text-sm text-gray-400">Automatically generate REST APIs from external Web Service Specifications</p>
+          </div>
+
+          {/* Monitor */}
+          <div className="flex flex-col items-center text-center p-6 bg-gray-900/50 rounded-lg border border-gray-700/50 hover:border-gray-600/50 transition-colors">
+            <div className="w-16 h-16 bg-yellow-600 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-2xl">📊</span>
+            </div>
+            <h3 className="text-lg font-semibold text-white mb-2">Monitor</h3>
+            <p className="text-sm text-gray-400">Real-time monitoring and observability for agent systems</p>
+          </div>
+        </div>
+      </div>
+
       {/* Code Example Section */}
       <div className="w-full max-w-4xl mt-24">
         <h2 className="text-2xl font-semibold mb-6 text-center text-gray-300">See OAS in Action</h2>
