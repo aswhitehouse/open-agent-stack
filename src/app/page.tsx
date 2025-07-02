@@ -170,11 +170,29 @@ behavioural_contract:
 
         {/* Column 3: DACP */}
         <div className="border-r border-white/20 pr-6">
-          <h2 className="text-2xl font-semibold mb-2 text-gray-300">DACP (Coming Soon)</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-gray-300">DACP</h2>
           <p className="text-white/80 text-sm">
             Declarative Agent Communication Protocol, a message-passing and collaboration layer built around structured task exchange,
             enabling multi-agent systems to interoperate predictably.
           </p>
+          <div className="mt-2 space-y-1">
+            <a
+              href="https://github.com/aswhitehouse/dacp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-300 underline text-sm"
+            >
+              GitHub →
+            </a>
+            <a
+              href="https://pypi.org/project/dacp/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-300 underline text-sm"
+            >
+              PyPi →
+            </a>
+          </div>
         </div>
 
         {/* Column 4: Shepard */}
