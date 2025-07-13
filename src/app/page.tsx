@@ -92,8 +92,22 @@ behavioural_contract:
           Open Agent Stack is an independent, umbrella toolkit for building safe, structured ai agent ecosystems
         </p>
         <p className="text-sm md:text-base text-gray-500 text-center mt-4 max-w-3xl leading-relaxed">
-          Think of Open Agent Stack as "HTTP + middleware" for agents.
+          Think of Open Agent Stack as "HTTP + middleware" for agents, not just task runners, but a structured, enforceable way for agents to think, talk, and cooperate.
         </p>
+        
+        {/* Prime Vector Section */}
+        <div className="flex flex-col items-center mt-8 p-6 bg-gray-900/30 rounded-lg border border-gray-700/30">
+          <Image
+            src="/prime-vector.png"
+            alt="Prime Vector Logo"
+            width={120}
+            height={40}
+            className="mb-3"
+          />
+          <p className="text-sm text-gray-400 text-center">
+            Open Agent Stack is a software solution provided by <span className="text-white font-medium">Prime Vector</span>
+          </p>
+        </div>
       </div>
 
       {/* Four-Column Layout */}
