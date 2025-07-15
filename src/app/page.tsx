@@ -92,7 +92,7 @@ behavioural_contract:
           Open Agent Stack is an independent, umbrella toolkit for building safe, structured ai agent ecosystems
         </p>
         <p className="text-sm md:text-base text-gray-500 text-center mt-4 max-w-3xl leading-relaxed">
-          Think of Open Agent Stack as "HTTP + middleware" for agents, not just task runners, but a structured, enforceable way for agents to think, talk, and cooperate.
+          Think of Open Agent Stack as "HTTP + middleware" for agents!
         </p>
         
         {/* Prime Vector Section */}
@@ -156,14 +156,6 @@ behavioural_contract:
           </p>
           <div className="mt-2 space-y-1">
             <a
-              href="https://github.com/aswhitehouse/behavioural-contracts"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-blue-300 underline text-sm"
-            >
-              GitHub →
-            </a>
-            <a
               href="https://pypi.org/project/behavioural-contracts/"
               target="_blank"
               rel="noopener noreferrer"
@@ -190,14 +182,6 @@ behavioural_contract:
             enabling multi-agent systems to interoperate predictably.
           </p>
           <div className="mt-2 space-y-1">
-            <a
-              href="https://github.com/aswhitehouse/dacp"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-blue-300 underline text-sm"
-            >
-              GitHub →
-            </a>
             <a
               href="https://pypi.org/project/dacp/"
               target="_blank"
