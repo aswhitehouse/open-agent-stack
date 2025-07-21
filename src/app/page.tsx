@@ -121,7 +121,7 @@ behavioural_contract:
           </p>
           <div className="mt-2 space-y-1">
             <a
-              href="https://github.com/aswhitehouse/open-agent-spec"
+              href="https://github.com/prime-vector/open-agent-spec"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-blue-300 underline text-sm"
