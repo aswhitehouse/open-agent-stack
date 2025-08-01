@@ -195,11 +195,9 @@ behavioural_contract:
 
         {/* Column 4: Shepard */}
         <div>
-          <h2 className="text-2xl font-semibold mb-2 text-gray-300">Shepard (Coming Soon)</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-gray-300">Cortex (Coming Soon)</h2>
           <p className="text-white/80 text-sm">
-            A supervising agent process that monitors other agents using BCE rules and DACP tracebacks, ensuring alignment, health, and
-            corrective feedback across chains.
-            Orchestrates, deploys, removes suspect agents and manages their lifecycle and Observability.
+          Cortex acts as the full reasoning brain in a layered agent architecture, where sensors provide perception (eyes and ears), a reactive base layer handles reflexes, and Cortex performs structured, contract-bound cognition using LLMs.
           </p>
         </div>
       </div>
