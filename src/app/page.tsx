@@ -195,7 +195,7 @@ behavioural_contract:
 
         {/* Column 4: Cortex */}
         <div>
-          <h2 className="text-2xl font-semibold mb-2 text-gray-300">Cortex (Coming Soon)</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-gray-300">Cortex (Intelligence Engine)</h2>
           <p className="text-white/80 text-sm">
           Cortex acts as the full reasoning brain in a layered agent architecture, where sensors provide perception (eyes and ears), a reactive base layer handles reflexes, and Cortex performs structured, contract-bound cognition using LLMs.
           </p>
