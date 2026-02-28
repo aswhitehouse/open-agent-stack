@@ -108,6 +108,17 @@ behavioural_contract:
             Open Agent Stack is a software solution provided by <span className="text-white font-medium">Prime Vector</span>
           </p>
         </div>
+
+        {/* Try Open Agent Spec – main CTA tile */}
+        <a
+          href="https://www.openagentspec.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-10 w-full max-w-xl flex flex-col items-center justify-center p-8 rounded-xl border-2 border-blue-500/60 bg-gradient-to-b from-blue-950/40 to-gray-900/60 hover:border-blue-400 hover:from-blue-900/50 hover:to-gray-800/60 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/20"
+        >
+          <span className="text-2xl md:text-3xl font-semibold text-white mb-2">Try out Open Agent Spec</span>
+          <span className="text-sm text-blue-300">openagentspec.dev →</span>
+        </a>
       </div>
 
       {/* Four-Column Layout */}
